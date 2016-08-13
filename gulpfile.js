@@ -1,85 +1,157 @@
-/*eslint-env node */
-
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
-var eslint = require('gulp-eslint');
-var jasmine = require('gulp-jasmine-phantom');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
+var plugins = require('gulp-load-plugins')();
+var runSequence = require('run-sequence');
+var del = require('del');
+var assign = require('loadash/object/assign');
+var browserify = require('browserify');
+var watchiy = require('watchify');
+var babelify = require('babelify');
+var hbsfy = require('hbsfy');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var mergeStream = require('mmerge-stream');
+var through = require('through2');
 
-gulp.task('default', ['copy-html', 'copy-images', 'styles', 'lint', 'scripts'], function() {
-	gulp.watch('sass/**/*.scss', ['styles']);
-	gulp.watch('js/**/*.js', ['lint']);
-	gulp.watch('/index.html', ['copy-html']);
-	gulp.watch('./dist/index.html').on('change', browserSync.reload);
+//var sass = require('gulp-sass');
+//var autoprefixer = require('gulp-autoprefixer');
+//var browserSync = require('browser-sync').create();
+//var eslint = require('gulp-eslint');
+//var jasmine = require('gulp-jasmine-phantom');
+//var concat = require('gulp-concat');
+//var uglify = require('gulp-uglify');
 
-	browserSync.init({
-		server: './dist'
-	});
+
+
+var args = process.argv.slice(3);
+
+gulp.task('clean',function(done){
+    del(['build'],done);
 });
 
-gulp.task('dist', [
-	'copy-html',
-	'copy-images',
-	'styles',
-	'lint',
-	'scripts-dist'
-]);
-
-gulp.task('scripts', function() {
-	gulp.src('js/**/*.js')
-		.pipe(concat('all.js'))
-		.pipe(gulp.dest('dist/js'));
+gulp.task('copy',function(){
+    return mergeStream(
+        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
+    );
+});
+    
+gulp.task('css',function(){
+    return gulp.src('public/scss/*.scss')
+        .pipe(plugins.sass.sync().on('error',plugins.sass.logError))
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.sass({outputStyle : 'compressed'}))
+        .pipe(plugins.sourcemaps.write('./'))
+        .pipe(gulp.dest('build/public/css'));
 });
 
-gulp.task('scripts-dist', function() {
-	gulp.src('js/**/*.js')
-		.pipe(concat('all.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('dist/js'));
+    
+function createBundle(src){
+    if(!src.push){
+        src = [src];
+    }
+    
+    var customOpts = {
+        entries: src,
+        debug: true
+    };
+    var opts = assign({},watchify.args, customOpts);
+    var b = watchify(browserify(opts));
+    
+    b.transform(babelify.configure({
+        stage: 1   
+    }));
+    
+    b.transform(hbsfy);
+    b.on('log',plugins.util.log);
+    return b;
+}
+    
+function bundle(b, outputPath){
+    var splitPath = outputPath.split('/');
+    var outputFile = splitPath[splitPath.length - 1];
+    var outputDir = splitPath.slice(0,-1).join('/');
+    
+    return b.bundle()
+        // log errors if they happen
+        .on('error', plugins.util.log.bind(plugins.util, 'Browserify Error'))
+        .pipe(source(outputFile))
+        // optional: to buffer the file contents
+        .pipe(buffer)
+        // optional: to create sourcemaps
+        .pipe(plugins.sourcemaps.init({loadMaps: true})) // loads map from browserify file
+        // Adding transformation task to pipeline
+        .pipe(plugins.sourcemaps.write('./')) // writes .map file
+        .pipe(gulp.dest('build/public' + outputDir));
+}
+    
+var jsBundles = {
+    'js/polyfills/promise.js': createBundle('./public/js/polyfills/promise.js'),
+    'js/polyfills/urls.js': createBundle('./public/js/polyfills/url.js'),
+    'js/settings.js': createBundle('./public/js/settings/index.js'),
+    'js/main.js': createBundle('./public/js/main/index.js'),
+    'js/remote-executor.js': createBundle('./public/js/remote-executor/index.js'),
+    'js/idb-test.js': createBundle('./public/js/idb-test/index.js'),
+    'sw.js': createBundle(['./public/js/sw/index.js', './public/js/sw/preroll/index.js'])
+};
+    
+gulp.task('js:browser',function(){
+    return mergeStream.apply(null,
+        Object.keys(jsBundles).map(function(){
+            return bundle(jsBundles[key], key);    
+        })
+    );
 });
-
-gulp.task('copy-html', function() {
-	gulp.src('./index.html')
-		.pipe(gulp.dest('./dist'));
+    
+gulp.task('js:server',function(){
+    return gulp.src('server/**/*.js')
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.babel({stage: 1}))
+        .on('error', plugins.util.log.bind(plugins.util))
+        .pipe(plugins.sourcemaps.write('.'))
+        .pipe(gulp.dest('build/server'));
 });
-
-gulp.task('copy-images', function() {
-	gulp.src('img/*')
-		.pipe(gulp.dest('dist/img'));
+    
+gulp.task('templates:server',function(){
+    return gulp.src('templates/*.hbs')
+        .pipe(plugins.handlebars())
+        .on('error', plugins.util.log.bind(plugins.util))
+        .pipe(through.obj(function(file, enc, callback){
+            // Don't want the whole lib
+            file.defineModuleOptions.require = {Handlebars: 'handlebars/runtime'};
+            callback(null, file);
+        }))
+        .pipe(plugins.defineModule('commonjs'))
+        .pipe(plugins.rename(function(path){
+            path.extname = '.js';
+        }))
+        .pipe(gulp.dest('build/server/templates'));
 });
-
-gulp.task('styles', function() {
-	gulp.src('sass/**/*.scss')
-		.pipe(sass({
-			outputStyle: 'compressed'
-		}).on('error', sass.logError))
-		.pipe(autoprefixer({
-			browsers: ['last 2 versions']
-		}))
-		.pipe(gulp.dest('dist/css'))
-		.pipe(browserSync.stream());
+    
+gulp.task('watch', function(){
+    gulp.watch(['public/scss/**/*.scss'], ['css']);
+    gulp.watch(['templates/*.hbs'], ['templates:server']);
+    gulp.watch(['server/**/*.js'], ['js:server']);
+    gulp.watch(['public/imgs/**/*'], ['copy']);
+    
+    Object.keys(jsBundles).forEach(function(key){
+        var b = jsBundles[key];
+        b.on('update', function(){
+           return bundle(b, key); 
+        });
+    });
 });
-
-gulp.task('lint', function () {
-	return gulp.src(['js/**/*.js'])
-		// eslint() attaches the lint output to the eslint property
-		// of the file object so it can be used by other modules.
-		.pipe(eslint())
-		// eslint.format() outputs the lint results to the console.
-		// Alternatively use eslint.formatEach() (see Docs).
-		.pipe(eslint.format())
-		// To have the process exit with an error code (1) on
-		// lint error, return the stream and pipe to failOnError last.
-		.pipe(eslint.failOnError());
+    
+gulp.task('server', function(){
+    plugins.developServer.listen({
+        path: './index.js',
+        cwd: './build/server',
+        args: args
+    });
+    
+    gulp.watch([
+        'build/server/**/*.js'
+    ], plugins.developServer.restart);
 });
-
-gulp.task('tests', function () {
-	gulp.src('tests/spec/extraSpec.js')
-		.pipe(jasmine({
-			integration: true,
-			vendor: 'js/**/*.js'
-		}));
+    
+gulp.task('serve', function(callback){
+   runSequence('clean', ['css', 'js:browser', 'templates:server', 'js:server', 'copy'], ['server', 'watch'], callback); 
 });
