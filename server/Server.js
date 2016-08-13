@@ -60,14 +60,16 @@ export default class Server {
         this._app.use('/manifest.json',express.static('../public/manifest.json',staticOptions));
         
         this._app.get('/',(req,res) => {
+            console.log("request response");
            res.send(indexTemplate({
                scripts: '<script src="/js/main.js" defer></script>',
-               content: '<h1>Hello World!</h1>'
+               content: 'Hello World!'
            })); 
         });
+
     }
     
-    _onServerConnection(scoket){
+    _onServerConnection(socket){
         let closed = false;
         this._connections.push(socket);
         
@@ -122,9 +124,8 @@ export default class Server {
             this._serverUp = false;
             return;
         }
-        
         if(!this._serverUp){
-            this._listen;
+            this._listen();
         }
     }
 }
