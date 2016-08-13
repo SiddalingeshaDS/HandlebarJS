@@ -60,7 +60,6 @@ export default class Server {
         this._app.use('/manifest.json',express.static('../public/manifest.json',staticOptions));
         
         this._app.get('/',(req,res) => {
-            console.log("request response");
            res.send(indexTemplate({
                scripts: '<script src="/js/main.js" defer></script>',
                content: 'Hello World!'

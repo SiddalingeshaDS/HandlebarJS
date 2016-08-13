@@ -35,7 +35,7 @@ npm install
 npm run serve
 ```
 
-You should now have the app server at [localhost:8888](http://localhost:8888).
+You should now have the app server at [localhost:8787](http://localhost:8787).
 
 You can also configure the ports:
 

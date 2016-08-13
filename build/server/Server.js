@@ -109,7 +109,6 @@ var Server = (function () {
         this._app.use('/manifest.json', _express2['default']['static']('../public/manifest.json', staticOptions));
 
         this._app.get('/', function (req, res) {
-            console.log("request response");
             res.send((0, _templatesIndex2['default'])({
                 scripts: '<script src="/js/main.js" defer></script>',
                 content: 'Hello World!'
