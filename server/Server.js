@@ -10,7 +10,15 @@ import net from 'net';
 import Throttle from 'throttle';
 import random from 'lodash/number/random';
 import indexTemplate from './templates/index';
-
+import topNavbarTemplate from './templates/topNavbar'
+import mainNavbarTemplate from './templates/mainNavbar'
+import heroSliderTemplate from './templates/heroSlider'
+import featuredTemplate from './templates/featured'
+import infoSliderTemplate from './templates/infoSlider'
+import contactTemplate from './templates/contact'
+import sitemapTemplate from './templates/sitemap'
+import footerTemplate from './templates/footer'
+import mediaTemplate from './templates/media'
 
 const compressor = compression({
     flush : zlib.Z_PARTIAL_FLUSH
@@ -62,8 +70,26 @@ export default class Server {
         this._app.get('/',(req,res) => {
            res.send(indexTemplate({
                scripts: '<script src="/js/main.js" defer></script>',
-               content: 'Hello World!'
+               topNavbar: topNavbarTemplate(),
+               mainNavbar: mainNavbarTemplate(),
+               content: 'MAIN CONTENT',
+               sitemap: sitemapTemplate(),
+               footer: footerTemplate(),
+               media: mediaTemplate()
            })); 
+        });
+        
+        this._app.get('/skeleton',(req, res) => {
+            res.send(indexTemplate({
+                
+                scripts: '<script src="/js/main.js" defer></script>',
+                topNavbar: topNavbarTemplate(),
+                mainNavbar: mainNavbarTemplate(),
+                content: 'MAIN CONTENT',
+                sitemap: sitemapTemplate(),
+                footer: footerTemplate(),
+                media: mediaTempalte()
+            }))
         });
 
     }

@@ -56,6 +56,42 @@ var _templatesIndex = require('./templates/index');
 
 var _templatesIndex2 = _interopRequireDefault(_templatesIndex);
 
+var _templatesTopNavbar = require('./templates/topNavbar');
+
+var _templatesTopNavbar2 = _interopRequireDefault(_templatesTopNavbar);
+
+var _templatesMainNavbar = require('./templates/mainNavbar');
+
+var _templatesMainNavbar2 = _interopRequireDefault(_templatesMainNavbar);
+
+var _templatesHeroSlider = require('./templates/heroSlider');
+
+var _templatesHeroSlider2 = _interopRequireDefault(_templatesHeroSlider);
+
+var _templatesFeatured = require('./templates/featured');
+
+var _templatesFeatured2 = _interopRequireDefault(_templatesFeatured);
+
+var _templatesInfoSlider = require('./templates/infoSlider');
+
+var _templatesInfoSlider2 = _interopRequireDefault(_templatesInfoSlider);
+
+var _templatesContact = require('./templates/contact');
+
+var _templatesContact2 = _interopRequireDefault(_templatesContact);
+
+var _templatesSitemap = require('./templates/sitemap');
+
+var _templatesSitemap2 = _interopRequireDefault(_templatesSitemap);
+
+var _templatesFooter = require('./templates/footer');
+
+var _templatesFooter2 = _interopRequireDefault(_templatesFooter);
+
+var _templatesMedia = require('./templates/media');
+
+var _templatesMedia2 = _interopRequireDefault(_templatesMedia);
+
 var compressor = (0, _compression2['default'])({
     flush: _zlib2['default'].Z_PARTIAL_FLUSH
 });
@@ -111,7 +147,25 @@ var Server = (function () {
         this._app.get('/', function (req, res) {
             res.send((0, _templatesIndex2['default'])({
                 scripts: '<script src="/js/main.js" defer></script>',
-                content: 'Hello World!'
+                topNavbar: (0, _templatesTopNavbar2['default'])(),
+                mainNavbar: (0, _templatesMainNavbar2['default'])(),
+                content: 'MAIN CONTENT',
+                sitemap: (0, _templatesSitemap2['default'])(),
+                footer: (0, _templatesFooter2['default'])(),
+                media: (0, _templatesMedia2['default'])()
+            }));
+        });
+
+        this._app.get('/skeleton', function (req, res) {
+            res.send((0, _templatesIndex2['default'])({
+
+                scripts: '<script src="/js/main.js" defer></script>',
+                topNavbar: (0, _templatesTopNavbar2['default'])(),
+                mainNavbar: (0, _templatesMainNavbar2['default'])(),
+                content: 'MAIN CONTENT',
+                sitemap: (0, _templatesSitemap2['default'])(),
+                footer: (0, _templatesFooter2['default'])(),
+                media: mediaTempalte()
             }));
         });
     }
