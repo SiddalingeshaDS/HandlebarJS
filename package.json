@@ -1,5 +1,5 @@
 {
-    "name": "WeightsAndMeasures",
+    "name": "weightsandmeasures",
     "version": "1.0.0",
     "description": "An Offline first Museum template inspired by newMuseum.org",
     "main": "gulpfile.js",
