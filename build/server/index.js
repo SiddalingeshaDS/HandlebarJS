@@ -12,8 +12,7 @@ var _minimist2 = _interopRequireDefault(_minimist);
 
 var argv = (0, _minimist2['default'])(process.argv, {
     'default': {
-        'config-server-port': 8889,
-        'server-port': 8787
+        'server-port': 8888
     }
 });
 
