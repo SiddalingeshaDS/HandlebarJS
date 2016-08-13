@@ -14,8 +14,15 @@ An application that can be used by museums.
 
 # Credits
 
-1. The primary source of learning for the project structure and codebase is from the 'wittr' applicaiton developed in the Udacity Offline first course
+1. The primary source for the project structure and codebase is from the 'wittr' applicaiton developed in the Udacity Offline first course
 2. The templates are inspired from the newMuseum.org website.
+
+# Dev Environment and Tech Stack
+
+1. Handlebar
+2. Service Workers
+3. Gulp
+4. NPM modules
 
 # Installing
 
