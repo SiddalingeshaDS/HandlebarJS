@@ -11,17 +11,6 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var mergeStream = require('merge-stream');
 var through = require('through2');
-//var bootstrap = require('bootstrap');
-
-//var sass = require('gulp-sass');
-//var autoprefixer = require('gulp-autoprefixer');
-//var browserSync = require('browser-sync').create();
-//var eslint = require('gulp-eslint');
-//var jasmine = require('gulp-jasmine-phantom');
-//var concat = require('gulp-concat');
-//var uglify = require('gulp-uglify');
-
-
 
 var args = process.argv.slice(3);
 
@@ -32,10 +21,7 @@ gulp.task('clean',function(done){
 gulp.task('copy',function(){
     return mergeStream(
         gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
-    gulp.src('public/*.json').pipe(gulp.dest('build/public/'))
-//        gulp.src('bower_components/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/bootstrap')),
-//        gulp.src('bower_components/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/fonts/bootstrap')),
-//        gulp.src('bower_components/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/bootstrap'))        
+        gulp.src('public/*.json').pipe(gulp.dest('build/public/'))
     );
 });
     
@@ -92,10 +78,7 @@ function bundle(b, outputPath){
 var jsBundles = {
     'js/polyfills/promise.js': createBundle('./public/js/polyfills/promise.js'),
     'js/polyfills/urls.js': createBundle('./public/js/polyfills/url.js'),
-//    'js/settings.js': createBundle('./public/js/settings/index.js'),
     'js/main.js': createBundle('./public/js/main/index.js'),
-//    'js/remote-executor.js': createBundle('./public/js/remote-executor/index.js'),
-//    'js/idb-test.js': createBundle('./public/js/idb-test/index.js'),
     'sw.js': createBundle(['./public/js/sw/index.js', './public/js/sw/preroll/index.js'])
 };
     

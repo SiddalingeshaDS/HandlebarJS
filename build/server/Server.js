@@ -168,6 +168,12 @@ var Server = (function () {
                 media: (0, _templatesMedia2['default'])()
             }));
         });
+
+        this._app.get('/photos/:img', function (req, res) {
+            res.sendFile('imgs/test.jpeg', {
+                root: __dirname + '/../public/'
+            });
+        });
     }
 
     _createClass(Server, [{

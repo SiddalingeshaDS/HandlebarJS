@@ -29,10 +29,10 @@ self.addEventListener('fetch', function (event) {
       event.respondWith(caches.match('/skeleton'));
       return;
     }
-    //    if (requestUrl.pathname.startsWith('/photos/')) {
-    //      event.respondWith(servePhoto(event.request));
-    //      return;
-    //    }
+    if (requestUrl.pathname.startsWith('/photos/')) {
+      event.respondWith(servePhoto(event.request));
+      return;
+    }
     // TODO: respond to avatar urls by responding with
     // the return value of serveAvatar(event.request)
     //    if (requestUrl.pathname.startsWith('/avatars/')) {
@@ -65,20 +65,20 @@ self.addEventListener('fetch', function (event) {
 // });
 //}
 
-//function servePhoto(request) {
-//  var storageUrl = request.url.replace(/-\d+px\.jpg$/, '');
-//
-//  return caches.open(contentImgsCache).then(function(cache) {
-//    return cache.match(storageUrl).then(function(response) {
-//      if (response) return response;
-//
-//      return fetch(request).then(function(networkResponse) {
-//        cache.put(storageUrl, networkResponse.clone());
-//        return networkResponse;
-//      });
-//    });
-//  });
-//}
+function servePhoto(request) {
+  var storageUrl = request.url.replace(/-\d+px\.jpeg$/, '');
+
+  return caches.open(contentImgsCache).then(function (cache) {
+    return cache.match(storageUrl).then(function (response) {
+      if (response) return response;
+
+      return fetch(request).then(function (networkResponse) {
+        cache.put(storageUrl, networkResponse.clone());
+        return networkResponse;
+      });
+    });
+  });
+}
 
 self.addEventListener('message', function (event) {
   if (event.data.action === 'skipWaiting') {

@@ -7,7 +7,7 @@ var Handlebars = require("handlebars/runtime");module.exports = Handlebars.templ
     + ((stack1 = ((helper = (helper = helpers.scripts || (depth0 != null ? depth0.scripts : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"scripts","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\r\n  <title>Weights And Measures</title>\r\n</head>\r\n<body>\r\n"
     + ((stack1 = ((helper = (helper = helpers.topNavbar || (depth0 != null ? depth0.topNavbar : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"topNavbar","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\r\n"
+    + "\r\n<img src=\"/photos/test.jpeg\" />\r\n"
     + ((stack1 = ((helper = (helper = helpers.mainNavbar || (depth0 != null ? depth0.mainNavbar : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"mainNavbar","hash":{},"data":data}) : helper))) != null ? stack1 : "")
     + "\r\n"
     + ((stack1 = ((helper = (helper = helpers.content || (depth0 != null ? depth0.content : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"content","hash":{},"data":data}) : helper))) != null ? stack1 : "")

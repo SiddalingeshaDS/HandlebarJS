@@ -91,7 +91,12 @@ export default class Server {
                 media: mediaTemplate()
             }))
         });
-
+      
+      this._app.get('/photos/:img', (req, res)=> {
+        res.sendFile('imgs/test.jpeg',{
+          root: __dirname + '/../public/'
+        });
+      });
     }
     
     _onServerConnection(socket){
