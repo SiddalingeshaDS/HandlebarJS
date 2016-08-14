@@ -11,6 +11,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var mergeStream = require('merge-stream');
 var through = require('through2');
+//var bootstrap = require('bootstrap');
 
 //var sass = require('gulp-sass');
 //var autoprefixer = require('gulp-autoprefixer');
@@ -30,7 +31,10 @@ gulp.task('clean',function(done){
 
 gulp.task('copy',function(){
     return mergeStream(
-        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs'))
+        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
+        gulp.src('bower_components/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/bootstrap')),
+        gulp.src('bower_components/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/fonts/bootstrap')),
+        gulp.src('bower_components/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/bootstrap'))        
     );
 });
     
@@ -43,6 +47,7 @@ gulp.task('css',function(){
         .pipe(gulp.dest('build/public/css'));
 });
 
+//gulp.task()
     
 function createBundle(src){
     if(!src.push){
