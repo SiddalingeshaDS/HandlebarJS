@@ -31,10 +31,10 @@ gulp.task('clean',function(done){
 
 gulp.task('copy',function(){
     return mergeStream(
-        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
-        gulp.src('bower_components/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/bootstrap')),
-        gulp.src('bower_components/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/fonts/bootstrap')),
-        gulp.src('bower_components/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/bootstrap'))        
+        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs'))
+//        gulp.src('bower_components/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/bootstrap')),
+//        gulp.src('bower_components/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/fonts/bootstrap')),
+//        gulp.src('bower_components/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/bootstrap'))        
     );
 });
     
