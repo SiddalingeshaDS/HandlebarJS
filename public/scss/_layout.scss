@@ -6,7 +6,7 @@
 
 .main{
   @include flex(1);
-  @include disply-flex;
+  @include display-flex;
   overflow: hidden;
   position: relative;
 }
