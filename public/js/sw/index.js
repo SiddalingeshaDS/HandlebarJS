@@ -1,4 +1,4 @@
-var staticCacheName = 'wnm-static-v8';
+var staticCacheName = 'wnm-static-v1';
 var contentImgsCache = 'wnm-content-imgs';
 var allCaches = [
   staticCacheName,
@@ -10,6 +10,7 @@ self.addEventListener('install', function(event) {
     caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
         '/skeleton',
+        '/manifest.json',
         'js/main.js',
         'css/main.css',
         'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff',
@@ -24,7 +25,7 @@ self.addEventListener('activate', function(event) {
     caches.keys().then(function(cacheNames) {
       return Promise.all(
         cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('wittr-') &&
+          return cacheName.startsWith('wnm-') &&
                  !allCaches.includes(cacheName);
         }).map(function(cacheName) {
           return caches.delete(cacheName);
@@ -38,10 +39,10 @@ self.addEventListener('fetch', function(event) {
   var requestUrl = new URL(event.request.url);
 
   if (requestUrl.origin === location.origin) {
-//    if (requestUrl.pathname === '/') {
-//      event.respondWith(caches.match('/skeleton'));
-//      return;
-//    }
+    if (requestUrl.pathname === '/') {
+      event.respondWith(caches.match('/skeleton'));
+      return;
+    }
 //    if (requestUrl.pathname.startsWith('/photos/')) {
 //      event.respondWith(servePhoto(event.request));
 //      return;

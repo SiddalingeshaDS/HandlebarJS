@@ -31,7 +31,8 @@ gulp.task('clean',function(done){
 
 gulp.task('copy',function(){
     return mergeStream(
-        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs'))
+        gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
+    gulp.src('public/*.json').pipe(gulp.dest('build/public/'))
 //        gulp.src('bower_components/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/bootstrap')),
 //        gulp.src('bower_components/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/fonts/bootstrap')),
 //        gulp.src('bower_components/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/bootstrap'))        
@@ -85,7 +86,7 @@ function bundle(b, outputPath){
         .pipe(plugins.sourcemaps.init({loadMaps: true})) // loads map from browserify file
         // Adding transformation task to pipeline
         .pipe(plugins.sourcemaps.write('./')) // writes .map file
-        .pipe(gulp.dest('build/public' + outputDir));
+        .pipe(gulp.dest('build/public/' + outputDir));
 }
     
 var jsBundles = {

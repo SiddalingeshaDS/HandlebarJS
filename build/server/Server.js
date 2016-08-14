@@ -165,7 +165,7 @@ var Server = (function () {
                 content: 'MAIN CONTENT',
                 sitemap: (0, _templatesSitemap2['default'])(),
                 footer: (0, _templatesFooter2['default'])(),
-                media: mediaTempalte()
+                media: (0, _templatesMedia2['default'])()
             }));
         });
     }

@@ -88,7 +88,7 @@ export default class Server {
                 content: 'MAIN CONTENT',
                 sitemap: sitemapTemplate(),
                 footer: footerTemplate(),
-                media: mediaTempalte()
+                media: mediaTemplate()
             }))
         });
 
