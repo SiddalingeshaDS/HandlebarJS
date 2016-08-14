@@ -1,0 +1,2 @@
+1. Develop the templates for various components.
+2. Add images to the site.
