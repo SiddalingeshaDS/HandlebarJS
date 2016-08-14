@@ -29,16 +29,11 @@ An application that can be used by museums.
 Dependencies:
 
 * [Node.js](https://nodejs.org/en/) v0.21.7 or above
-* [Bower](https://bower.io/) latest version : v1.7.9
 
 Then check out the project and run:
 
 ```sh
 npm install
-```
-
-```sh
-bower install bootstrap
 ```
 
 # Running
