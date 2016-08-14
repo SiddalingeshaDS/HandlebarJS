@@ -92,6 +92,14 @@ var _templatesMedia = require('./templates/media');
 
 var _templatesMedia2 = _interopRequireDefault(_templatesMedia);
 
+var _templatesScripts = require('./templates/scripts');
+
+var _templatesScripts2 = _interopRequireDefault(_templatesScripts);
+
+var _templatesStyles = require('./templates/styles');
+
+var _templatesStyles2 = _interopRequireDefault(_templatesStyles);
+
 var compressor = (0, _compression2['default'])({
     flush: _zlib2['default'].Z_PARTIAL_FLUSH
 });
@@ -146,7 +154,8 @@ var Server = (function () {
 
         this._app.get('/', function (req, res) {
             res.send((0, _templatesIndex2['default'])({
-                scripts: '<script src="/js/main.js" defer></script>',
+                scripts: (0, _templatesScripts2['default'])(),
+                extraCss: (0, _templatesStyles2['default'])(),
                 topNavbar: (0, _templatesTopNavbar2['default'])(),
                 mainNavbar: (0, _templatesMainNavbar2['default'])(),
                 content: 'MAIN CONTENT',
@@ -159,7 +168,8 @@ var Server = (function () {
         this._app.get('/skeleton', function (req, res) {
             res.send((0, _templatesIndex2['default'])({
 
-                scripts: '<script src="/js/main.js" defer></script>',
+                scripts: (0, _templatesScripts2['default'])(),
+                extraCss: (0, _templatesStyles2['default'])(),
                 topNavbar: (0, _templatesTopNavbar2['default'])(),
                 mainNavbar: (0, _templatesMainNavbar2['default'])(),
                 content: 'MAIN CONTENT',

@@ -1,4 +1,4 @@
-var staticCacheName = 'wnm-static-v1';
+var staticCacheName = 'wnm-static-v3';
 var contentImgsCache = 'wnm-content-imgs';
 var allCaches = [
   staticCacheName,
@@ -12,7 +12,10 @@ self.addEventListener('install', function(event) {
         '/skeleton',
         '/manifest.json',
         'js/main.js',
+        'js/lib/jquery/jquery.min.js',
+        'js/lib/bootstrap/bootstrap.min.js',
         'css/main.css',
+        'css/lib/bootstrap/bootstrap.min.css',
         'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff',
         'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff'
       ]);

@@ -5,10 +5,10 @@ export default function IndexController(container){
   
   var indexController = this;
   
-  setInterval(function(){
-    indexController._cleanImageCache();
-  }, 1000 * 60 * 5);
-  
+//  setInterval(function(){
+//    indexController._cleanImageCache();
+//  }, 1000 * 20);
+//  
 }
 
 IndexController.prototype._registerServiceWorker = function(){
@@ -59,3 +59,6 @@ IndexController.prototype._updateReady = function(worker){
   worker.postMessage({action: 'skipWaiting'});
 };
 
+//IndexController.prototype._cleanImageCache = function(){
+//  
+//};

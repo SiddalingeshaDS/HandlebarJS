@@ -19,6 +19,8 @@ import contactTemplate from './templates/contact'
 import sitemapTemplate from './templates/sitemap'
 import footerTemplate from './templates/footer'
 import mediaTemplate from './templates/media'
+import scriptsTemplate from './templates/scripts'
+import stylesTemplate from './templates/styles'
 
 const compressor = compression({
     flush : zlib.Z_PARTIAL_FLUSH
@@ -69,7 +71,8 @@ export default class Server {
         
         this._app.get('/',(req,res) => {
            res.send(indexTemplate({
-               scripts: '<script src="/js/main.js" defer></script>',
+               scripts: scriptsTemplate(),
+               extraCss : stylesTemplate(),
                topNavbar: topNavbarTemplate(),
                mainNavbar: mainNavbarTemplate(),
                content: 'MAIN CONTENT',
@@ -82,7 +85,8 @@ export default class Server {
         this._app.get('/skeleton',(req, res) => {
             res.send(indexTemplate({
                 
-                scripts: '<script src="/js/main.js" defer></script>',
+                scripts: scriptsTemplate(),
+                extraCss : stylesTemplate(),
                 topNavbar: topNavbarTemplate(),
                 mainNavbar: mainNavbarTemplate(),
                 content: 'MAIN CONTENT',

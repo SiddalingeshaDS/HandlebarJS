@@ -13,9 +13,10 @@ function IndexController(container) {
 
   var indexController = this;
 
-  setInterval(function () {
-    indexController._cleanImageCache();
-  }, 1000 * 60 * 5);
+  //  setInterval(function(){
+  //    indexController._cleanImageCache();
+  //  }, 1000 * 20);
+  //
 }
 
 IndexController.prototype._registerServiceWorker = function () {
@@ -64,6 +65,10 @@ IndexController.prototype._trackInstalling = function (worker) {
 IndexController.prototype._updateReady = function (worker) {
   worker.postMessage({ action: 'skipWaiting' });
 };
+
+//IndexController.prototype._cleanImageCache = function(){
+// 
+//};
 module.exports = exports['default'];
 
 },{}],2:[function(require,module,exports){

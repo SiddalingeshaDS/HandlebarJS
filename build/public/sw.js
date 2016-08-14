@@ -1,13 +1,13 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var staticCacheName = 'wnm-static-v1';
+var staticCacheName = 'wnm-static-v3';
 var contentImgsCache = 'wnm-content-imgs';
 var allCaches = [staticCacheName, contentImgsCache];
 
 self.addEventListener('install', function (event) {
   event.waitUntil(caches.open(staticCacheName).then(function (cache) {
-    return cache.addAll(['/skeleton', '/manifest.json', 'js/main.js', 'css/main.css', 'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff', 'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff']);
+    return cache.addAll(['/skeleton', '/manifest.json', 'js/main.js', 'js/lib/jquery/jquery.min.js', 'js/lib/bootstrap/bootstrap.min.js', 'css/main.css', 'css/lib/bootstrap/bootstrap.min.css', 'https://fonts.gstatic.com/s/roboto/v15/2UX7WLTfW3W8TclTUvlFyQ.woff', 'https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOD8E0i7KZn-EPnyo3HZu7kw.woff']);
   }));
 });
 

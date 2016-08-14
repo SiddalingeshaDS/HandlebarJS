@@ -21,7 +21,10 @@ gulp.task('clean',function(done){
 gulp.task('copy',function(){
     return mergeStream(
         gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
-        gulp.src('public/*.json').pipe(gulp.dest('build/public/'))
+        gulp.src('public/*.json').pipe(gulp.dest('build/public/')),
+        gulp.src('node_modules/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/lib/bootstrap')),
+        gulp.src('node_modules/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/lib/bootstrap')),
+        gulp.src('node_modules/jquery/dist/*').pipe(gulp.dest('build/public/js/lib/jquery'))
     );
 });
     
