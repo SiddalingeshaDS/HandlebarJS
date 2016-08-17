@@ -76,6 +76,10 @@ var _templatesFeatured = require('./templates/featured');
 
 var _templatesFeatured2 = _interopRequireDefault(_templatesFeatured);
 
+var _templatesFeaturedTile = require('./templates/featuredTile');
+
+var _templatesFeaturedTile2 = _interopRequireDefault(_templatesFeaturedTile);
+
 var _templatesInfoSlider = require('./templates/infoSlider');
 
 var _templatesInfoSlider2 = _interopRequireDefault(_templatesInfoSlider);
@@ -129,6 +133,7 @@ var Server = (function () {
         this._port = port;
         this._connectionType = '';
         this._connections = [];
+        this._featuredList = [{ content: 'TEST1' }, { content: 'TEST2' }];
 
         this._appServer = _http2['default'].createServer(this._app);
         this._exposedServer = _net2['default'].createServer();
@@ -164,7 +169,11 @@ var Server = (function () {
                 mainNavbar: (0, _templatesMainNavbar2['default'])(),
                 content: (0, _templatesHomeContent2['default'])({
                     slider: (0, _templatesHeroSlider2['default'])(),
-                    featured: (0, _templatesFeatured2['default'])(),
+                    featured: (0, _templatesFeatured2['default'])({
+                        tiles: _this._featuredList.map(function (content) {
+                            return (0, _templatesFeaturedTile2['default'])(content);
+                        }).join('')
+                    }),
                     infoSlider: (0, _templatesInfoSlider2['default'])(),
                     contact: (0, _templatesContact2['default'])()
                 }),

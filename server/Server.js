@@ -15,6 +15,7 @@ import topNavbarTemplate from './templates/topNavbar';
 import mainNavbarTemplate from './templates/mainNavbar';
 import heroSliderTemplate from './templates/heroSlider';
 import featuredTemplate from './templates/featured';
+import featuredTileTemplate from './templates/featuredTile';
 import infoSliderTemplate from './templates/infoSlider';
 import contactTemplate from './templates/contact';
 import sitemapTemplate from './templates/sitemap';
@@ -46,6 +47,7 @@ export default class Server {
         this._port = port;
         this._connectionType = '';
         this._connections = [];
+        this._featuredList = [{content: 'TEST1' },{content: 'TEST2' }];
         
         this._appServer = http.createServer(this._app);
         this._exposedServer = net.createServer();
@@ -78,7 +80,9 @@ export default class Server {
                mainNavbar: mainNavbarTemplate(),
                content: homeContentTemplate({
                  slider: heroSliderTemplate(),
-                 featured: featuredTemplate(),
+                 featured: featuredTemplate({
+                   tiles: this._featuredList.map(content => featuredTileTemplate(content)).join('')
+                 }),
                  infoSlider: infoSliderTemplate(),
                  contact: contactTemplate()
                }),
