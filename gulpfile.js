@@ -23,8 +23,10 @@ gulp.task('copy',function(){
         gulp.src('public/imgs/**/*').pipe(gulp.dest('build/public/imgs')),
         gulp.src('public/*.json').pipe(gulp.dest('build/public/')),
         gulp.src('node_modules/bootstrap/dist/js/*').pipe(gulp.dest('build/public/js/lib/bootstrap')),
-        gulp.src('node_modules/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/lib/bootstrap')),
+        gulp.src('node_modules/bootstrap/dist/css/*').pipe(gulp.dest('build/public/css/lib/bootstrap/css')),
+        gulp.src('node_modules/bootstrap/dist/fonts/*').pipe(gulp.dest('build/public/css/lib/bootstrap/fonts')),
         gulp.src('node_modules/jquery/dist/*').pipe(gulp.dest('build/public/js/lib/jquery'))
+      
     );
 });
     

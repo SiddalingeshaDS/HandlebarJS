@@ -1,6 +1,6 @@
 .top-navbar-wrapper{
   z-index: 1;
-  box-shadow: 0 0px 11px rgba(0,0,0,0.4);
+  box-shadow: 0 0px 4px rgba(0,0,0,0.4);
   width: 100vw;
   height: 3em;
   & .top-navbar-container{
@@ -14,7 +14,8 @@
       @include align-items(center);
       height: 100%;
       max-width: 85%;
-      overflow: auto;
+      overflow-x: auto;
+      overflow-y: hidden;
       li{
         display: block;
         font-size: 4vw;
