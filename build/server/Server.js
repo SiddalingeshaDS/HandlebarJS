@@ -56,6 +56,10 @@ var _templatesIndex = require('./templates/index');
 
 var _templatesIndex2 = _interopRequireDefault(_templatesIndex);
 
+var _templatesHomeContent = require('./templates/homeContent');
+
+var _templatesHomeContent2 = _interopRequireDefault(_templatesHomeContent);
+
 var _templatesTopNavbar = require('./templates/topNavbar');
 
 var _templatesTopNavbar2 = _interopRequireDefault(_templatesTopNavbar);
@@ -158,7 +162,12 @@ var Server = (function () {
                 extraCss: (0, _templatesStyles2['default'])(),
                 topNavbar: (0, _templatesTopNavbar2['default'])(),
                 mainNavbar: (0, _templatesMainNavbar2['default'])(),
-                content: 'MAIN CONTENT',
+                content: (0, _templatesHomeContent2['default'])({
+                    slider: (0, _templatesHeroSlider2['default'])(),
+                    featured: (0, _templatesFeatured2['default'])(),
+                    infoSlider: (0, _templatesInfoSlider2['default'])(),
+                    contact: (0, _templatesContact2['default'])()
+                }),
                 sitemap: (0, _templatesSitemap2['default'])(),
                 footer: (0, _templatesFooter2['default'])(),
                 media: (0, _templatesMedia2['default'])()

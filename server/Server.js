@@ -10,17 +10,18 @@ import net from 'net';
 import Throttle from 'throttle';
 import random from 'lodash/number/random';
 import indexTemplate from './templates/index';
-import topNavbarTemplate from './templates/topNavbar'
-import mainNavbarTemplate from './templates/mainNavbar'
-import heroSliderTemplate from './templates/heroSlider'
-import featuredTemplate from './templates/featured'
-import infoSliderTemplate from './templates/infoSlider'
-import contactTemplate from './templates/contact'
-import sitemapTemplate from './templates/sitemap'
-import footerTemplate from './templates/footer'
-import mediaTemplate from './templates/media'
-import scriptsTemplate from './templates/scripts'
-import stylesTemplate from './templates/styles'
+import homeContentTemplate from './templates/homeContent';
+import topNavbarTemplate from './templates/topNavbar';
+import mainNavbarTemplate from './templates/mainNavbar';
+import heroSliderTemplate from './templates/heroSlider';
+import featuredTemplate from './templates/featured';
+import infoSliderTemplate from './templates/infoSlider';
+import contactTemplate from './templates/contact';
+import sitemapTemplate from './templates/sitemap';
+import footerTemplate from './templates/footer';
+import mediaTemplate from './templates/media';
+import scriptsTemplate from './templates/scripts';
+import stylesTemplate from './templates/styles';
 
 const compressor = compression({
     flush : zlib.Z_PARTIAL_FLUSH
@@ -72,10 +73,15 @@ export default class Server {
         this._app.get('/',(req,res) => {
            res.send(indexTemplate({
                scripts: scriptsTemplate(),
-               extraCss : stylesTemplate(),
+               extraCss: stylesTemplate(),
                topNavbar: topNavbarTemplate(),
                mainNavbar: mainNavbarTemplate(),
-               content: 'MAIN CONTENT',
+               content: homeContentTemplate({
+                 slider: heroSliderTemplate(),
+                 featured: featuredTemplate(),
+                 infoSlider: infoSliderTemplate(),
+                 contact: contactTemplate()
+               }),
                sitemap: sitemapTemplate(),
                footer: footerTemplate(),
                media: mediaTemplate()
