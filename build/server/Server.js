@@ -84,6 +84,10 @@ var _templatesInfoSlider = require('./templates/infoSlider');
 
 var _templatesInfoSlider2 = _interopRequireDefault(_templatesInfoSlider);
 
+var _templatesInfoSliderTile = require('./templates/infoSliderTile');
+
+var _templatesInfoSliderTile2 = _interopRequireDefault(_templatesInfoSliderTile);
+
 var _templatesContact = require('./templates/contact');
 
 var _templatesContact2 = _interopRequireDefault(_templatesContact);
@@ -134,6 +138,7 @@ var Server = (function () {
         this._connectionType = '';
         this._connections = [];
         this._featuredList = [{ content: 'TEST1' }, { content: 'TEST2' }];
+        this._infoList = [{ content: 'INFO_TEST1' }, { content: 'INFO_TEST2' }];
 
         this._appServer = _http2['default'].createServer(this._app);
         this._exposedServer = _net2['default'].createServer();
@@ -174,7 +179,11 @@ var Server = (function () {
                             return (0, _templatesFeaturedTile2['default'])(content);
                         }).join('')
                     }),
-                    infoSlider: (0, _templatesInfoSlider2['default'])(),
+                    infoSlider: (0, _templatesInfoSlider2['default'])({
+                        tiles: _this._infoList.map(function (content) {
+                            return (0, _templatesInfoSliderTile2['default'])(content);
+                        }).join('')
+                    }),
                     contact: (0, _templatesContact2['default'])()
                 }),
                 sitemap: (0, _templatesSitemap2['default'])(),

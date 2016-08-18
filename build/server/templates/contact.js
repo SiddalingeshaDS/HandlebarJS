@@ -1,3 +1,3 @@
 var Handlebars = require("handlebars/runtime");module.exports = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "";
+    return "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-md-3 col-xs-12\">\r\n      <h1>Stay in touch</h1>\r\n    </div>\r\n    <div class=\"col-sm-6 col-md-9 col-xs-12\">\r\n      <h2><label for=\"\">Sign-up to get the latest news.</label></h2>\r\n      <form action=\"#\" method=\"GET\" class=\"\">\r\n        <div class=\"\">\r\n          <input type=\"email\" autocapitalize=\"off\" autocorrect=\"off\" name=\"\" id=\"\" value=\"\" placeholder=\"Enter your email address\" class=\"\">\r\n        </div>\r\n        <button class=\"\" type=\"submit\">Sign Up</button>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>";
 },"useData":true});

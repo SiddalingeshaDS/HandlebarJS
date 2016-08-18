@@ -17,6 +17,7 @@ import heroSliderTemplate from './templates/heroSlider';
 import featuredTemplate from './templates/featured';
 import featuredTileTemplate from './templates/featuredTile';
 import infoSliderTemplate from './templates/infoSlider';
+import infoSliderTileTemplate from './templates/infoSliderTile';
 import contactTemplate from './templates/contact';
 import sitemapTemplate from './templates/sitemap';
 import footerTemplate from './templates/footer';
@@ -48,6 +49,7 @@ export default class Server {
         this._connectionType = '';
         this._connections = [];
         this._featuredList = [{content: 'TEST1' },{content: 'TEST2' }];
+        this._infoList = [{content: 'INFO_TEST1' },{content: 'INFO_TEST2' }];
         
         this._appServer = http.createServer(this._app);
         this._exposedServer = net.createServer();
@@ -83,7 +85,9 @@ export default class Server {
                  featured: featuredTemplate({
                    tiles: this._featuredList.map(content => featuredTileTemplate(content)).join('')
                  }),
-                 infoSlider: infoSliderTemplate(),
+                 infoSlider: infoSliderTemplate({
+                    tiles: this._infoList.map(content => infoSliderTileTemplate(content)).join('')
+                 }),
                  contact: contactTemplate()
                }),
                sitemap: sitemapTemplate(),
