@@ -1,0 +1,11 @@
+@import 'featuredTile';
+
+.featured-list{
+  .tile-wrapper{
+    padding: 10px;
+    .tile{
+      border: 1px solid #f0f0f0;
+      height: 300px;
+    }
+  }
+}
