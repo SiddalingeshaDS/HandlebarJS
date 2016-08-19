@@ -97,17 +97,25 @@ export default class Server {
         });
         
         this._app.get('/skeleton',(req, res) => {
-            res.send(indexTemplate({
-                
-                scripts: scriptsTemplate(),
-                extraCss : stylesTemplate(),
-                topNavbar: topNavbarTemplate(),
-                mainNavbar: mainNavbarTemplate(),
-                content: 'MAIN CONTENT',
-                sitemap: sitemapTemplate(),
-                footer: footerTemplate(),
-                media: mediaTemplate()
-            }))
+           res.send(indexTemplate({
+               scripts: scriptsTemplate(),
+               extraCss: stylesTemplate(),
+               topNavbar: topNavbarTemplate(),
+               mainNavbar: mainNavbarTemplate(),
+               content: homeContentTemplate({
+                 slider: heroSliderTemplate(),
+                 featured: featuredTemplate({
+                   tiles: this._featuredList.map(content => featuredTileTemplate(content)).join('')
+                 }),
+                 infoSlider: infoSliderTemplate({
+                    tiles: this._infoList.map(content => infoSliderTileTemplate(content)).join('')
+                 }),
+                 contact: contactTemplate()
+               }),
+               sitemap: sitemapTemplate(),
+               footer: footerTemplate(),
+               media: mediaTemplate()
+           })); 
         });
       
       this._app.get('/photos/:img', (req, res)=> {

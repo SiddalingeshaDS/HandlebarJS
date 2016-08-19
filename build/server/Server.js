@@ -194,12 +194,24 @@ var Server = (function () {
 
         this._app.get('/skeleton', function (req, res) {
             res.send((0, _templatesIndex2['default'])({
-
                 scripts: (0, _templatesScripts2['default'])(),
                 extraCss: (0, _templatesStyles2['default'])(),
                 topNavbar: (0, _templatesTopNavbar2['default'])(),
                 mainNavbar: (0, _templatesMainNavbar2['default'])(),
-                content: 'MAIN CONTENT',
+                content: (0, _templatesHomeContent2['default'])({
+                    slider: (0, _templatesHeroSlider2['default'])(),
+                    featured: (0, _templatesFeatured2['default'])({
+                        tiles: _this._featuredList.map(function (content) {
+                            return (0, _templatesFeaturedTile2['default'])(content);
+                        }).join('')
+                    }),
+                    infoSlider: (0, _templatesInfoSlider2['default'])({
+                        tiles: _this._infoList.map(function (content) {
+                            return (0, _templatesInfoSliderTile2['default'])(content);
+                        }).join('')
+                    }),
+                    contact: (0, _templatesContact2['default'])()
+                }),
                 sitemap: (0, _templatesSitemap2['default'])(),
                 footer: (0, _templatesFooter2['default'])(),
                 media: (0, _templatesMedia2['default'])()
