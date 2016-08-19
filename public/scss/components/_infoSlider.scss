@@ -1,0 +1,18 @@
+@import 'infoSliderTile';
+
+.info-slider-wrapper{
+  .info-slider-header{
+    h2{
+      font-size: 38px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      margin-left: 24px;
+      font-weight: bold;
+    }
+  }
+  .info-slider-tiles{
+    @include display-flex;
+    @include flex-direction(row);
+    min-height: 300px;
+  }
+}
