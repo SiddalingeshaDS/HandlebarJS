@@ -1,0 +1,45 @@
+.contact{
+  .left-pane{
+    h1{
+      font-size: 36px;
+      text-transform: uppercase;
+    }
+  }
+  .right-pane{
+    h2{
+      text-transform: none;
+      label{
+        font-size: 24px;
+        cursor: default;
+        font-weight: normal;
+      }
+    }
+    .contact-form{
+      .email-input-wrapper{
+        width: 70%;
+        float: left;
+        .email-input{
+          width: 100%;
+          padding: 15px 18px 15px 18px;
+          background-color: #f8f8f8;
+          border: 1px solid #f0f0f0;
+        }
+        @media(min-width: 600px){
+          width: 60%;
+        }
+      }
+      .contact-form-submit{
+        float: left;
+        width: 25%;
+        max-width: 90px;
+        text-align: center;
+        text-transform: uppercase;
+        border: none;
+        line-height: 50px;
+        @media(min-width: 600px){
+          width: 90px;
+        }
+      }
+    }
+  }
+}
