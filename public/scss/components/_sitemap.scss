@@ -1,0 +1,4 @@
+.sitemap-wrapper{
+  @include display-flex;
+  @include align-items(center);
+}
